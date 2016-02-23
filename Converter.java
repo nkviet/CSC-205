@@ -16,7 +16,7 @@ public class Converter {
 	}
 
 	private static String convert32Bit(String input) {
-		//Converted to float and seperates the whole number from the decimal
+		//Converted to float and separates the whole number from the decimal
 		float number = Float.parseFloat(input);
 		int wholeNumber = (int) number;
 		float decimals = number - wholeNumber;
@@ -28,7 +28,7 @@ public class Converter {
 			decimals = -decimals;
 		//Gets the binary representation of the whole number
 		String binaryNumber = getNumberString(wholeNumber);
-		//Gets the max exponent need for later
+		//Gets the max exponent needed for later
 		int exponent = binaryNumber.length() - 1;
 		//gets the binary representation for the decimal
 		String binaryDecimal = getDecimalString32(decimals,exponent);
@@ -41,6 +41,7 @@ public class Converter {
 	}
 
 	private static String convert64Bit(String input) {
+		//same as previous method except this is for 64 bit
 		float number = Float.parseFloat(input);
 		int wholeNumber = (int) number;
 		float decimals = number - wholeNumber;
@@ -77,12 +78,12 @@ public class Converter {
 		return finalResult;
 	}
 	private static float convertBackToFloat64(String result) {
+		//same as previous method except this is for 64 bit
 		boolean negative = result.charAt(0) == '1';
 		result = result.substring(2);
 		String middeString = result.substring(0, 11);
 		int middleNum = Integer.parseInt(middeString, 2);
 		int exponent = middleNum - 1023;
-		//adds the leading one back to the integer binary
 		String endString = "1" + result.substring(12);
 		String integerString = endString.substring(0, exponent + 1);
 		String decimalBinaryString = endString.substring(exponent + 1);
@@ -113,6 +114,7 @@ public class Converter {
 	private static String getMiddle8Bits(int exponent) {
 		return Integer.toBinaryString(127 + exponent);
 	}
+	//same as above except for middle 11 bits (64 bit binary number)
 	private static String getMiddle11Bits(int exponent) {
 		return Integer.toBinaryString(1023 + exponent);
 	}
@@ -146,6 +148,7 @@ public class Converter {
 		}
 		return binary;
 	}
+	//same as previous method except this is for 64 bit
 	private static String getDecimalString64(float decimals, int exponent) {
 		String binary = "";
 		int denominator = 2;
